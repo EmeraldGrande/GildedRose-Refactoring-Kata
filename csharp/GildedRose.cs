@@ -21,24 +21,19 @@ namespace csharp
             {
                 Item item = Items[i]; // gets the item at index i in the collection and assigns it to the variable item.
 
+                if (item.Name == "Sulfuras, Hand of Ragnaros") // Checks if the item is "Sulfuras, Hand of Ragnaros" and if it is then it will skip the rest of the code and move to the next item in the collection.
+                {
+                    continue; // This statement skips the rest of the code in the loop and moves to the next iteration of the loop.
+                }
+
                 if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
                     DecreaseQuality(item); // This method manages the conditions internally. 
-                    // Extract Method refactoring technique is used here to make the code more readable and maintainable.
+                                           // Extract Method refactoring technique is used here to make the code more readable and maintainable.
 
                     // Checks if the quality of the item is greater than 0, if it is then it will decrease the quality of the item by 1.
 
-                 
 
-                    {
-
-           
-
-                        
-                        {
-                            
-                        }
-                    }
                 }
                 else
                 {
@@ -49,23 +44,23 @@ namespace csharp
                         if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
                         {
                             if (item.SellIn < 11)
-                            
-                                
-                                {
-                                    IncreaseQuality(item);
-                                }
-                            
+
+
+                            {
+                                IncreaseQuality(item);
+                            }
+
 
                             // When the sellIn = 5 both conditions are true and the quality increases by 3.
                             if (item.SellIn < 6)
-                            
-                                
-                                {
-                                    IncreaseQuality(item);
-                                }
 
-                                
-                            
+
+                            {
+                                IncreaseQuality(item);
+                            }
+
+
+
                         }
                     }
                 }
@@ -74,43 +69,39 @@ namespace csharp
 
                 if (item.SellIn < 0)
                 {
-                    if (item.Name != "Aged Brie")
+                    if (item.Name == "Aged Brie")
                     {
-                        if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            //if (item.Quality > 0)
+                        IncreaseQuality(item);
+                    }
 
-                            DecreaseQuality(item);
-                            {
-                                
-                                {
-                                    
-                                }
-                            }
-                        }
-                        else
-                        {
-                            item.Quality = item.Quality - item.Quality;
-                        }
+                    else if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                    {
+
+                        item.Quality = 0;
                     }
                     else
-                    
-                        
-                        {
-                            IncreaseQuality(item);
-                        }
+                    {
+                        DecreaseQuality(item);
 
 
 
-                    
+
+                    }
                 }
             }
         }
 
-        // This method decreases the quality of an item by 1, but only if the item's quality is greater than 0 and the item is not "Sulfuras, Hand of Ragnaros".
+
+
+
+
+
+
+
+        // DecreaseQuality method is a helper method that decreases the quality of an item by 1, but only if the item's quality is greater than 0. This method is used to encapsulate the logic for decreasing the quality of an item, making the code more readable and maintainable.
         private void DecreaseQuality(Item item)
         {
-            if (item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros")
+            if (item.Quality > 0)
             {
                 item.Quality = item.Quality - 1;
             }
@@ -126,14 +117,17 @@ namespace csharp
         }
 
         private void DecreaseSellIn(Item item)
+
+
         {
-            if (item.Name != "Sulfuras, Hand of Ragnaros")
-            {
-                item.SellIn = item.SellIn - 1;
-               }
+            item.SellIn = item.SellIn - 1;
+
         }
-
-
     }
 }
+        
+
+
+    
+
     
