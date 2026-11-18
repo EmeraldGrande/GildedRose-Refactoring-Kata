@@ -18,80 +18,99 @@ namespace csharp
         {
             for (var i = 0; i < Items.Count; i++) // loops through every item in the collection, each item is checked indvidually.
             {
-                if (Items[i].Name != "Aged Brie" && Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                Item item = Items[i]; // gets the item at index i in the collection and assigns it to the variable item.
+
+                if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
-                    if (Items[i].Quality > 0) // Checks if the quality of the item is greater than 0, if it is then it will decrease the quality of the item by 1.
+                    DecreaseQuality(item); // This method manages the conditions internally. 
+                    // Extract Method refactoring technique is used here to make the code more readable and maintainable.
+
+                    //if (item.Quality > 0) // Checks if the quality of the item is greater than 0, if it is then it will decrease the quality of the item by 1.
                     {
-                        if (Items[i].Name != "Sulfuras, Hand of Ragnaros") // checks if the item is not "Sulfuras, Hand of Ragnaros" if it is not then it will decrease the quality of the item by 1.
+                        if (item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros") // checks if the item is not "Sulfuras, Hand of Ragnaros" if it is not then it will decrease the quality of the item by 1.
                         {
-                            Items[i].Quality = Items[i].Quality - 1;
+                            
                         }
                     }
                 }
                 else
                 {
-                    if (Items[i].Quality < 50)
+                    if (item.Quality < 50)
                     {
-                        Items[i].Quality = Items[i].Quality + 1;
+                        item.Quality = item.Quality + 1;
 
-                        if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                        if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
                         {
-                            if (Items[i].SellIn < 11)
+                            if (item.SellIn < 11)
                             {
-                                if (Items[i].Quality < 50)
+                                if (item.Quality < 50)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 1;
+                                    item.Quality = item.Quality + 1;
                                 }
                             }
 
                             // When the sellIn = 5 both conditions are true and the quality increases by 3.
-                            if (Items[i].SellIn < 6)
+                            if (item.SellIn < 6)
                             {
-                                if (Items[i].Quality < 50)
+                                if (item.Quality < 50)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 1;
+                                    item.Quality = item.Quality + 1;
                                 }
                             }
                         }
                     }
                 }
 
-                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                if (item.Name != "Sulfuras, Hand of Ragnaros")
                 {
-                    Items[i].SellIn = Items[i].SellIn - 1;
+                    item.SellIn = item.SellIn - 1;
                 }
 
-                if (Items[i].SellIn < 0)
+                if (item.SellIn < 0)
                 {
-                    if (Items[i].Name != "Aged Brie")
+                    if (item.Name != "Aged Brie")
                     {
-                        if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                        if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
                         {
-                            if (Items[i].Quality > 0)
+                            //if (item.Quality > 0)
+
+                            DecreaseQuality(item);
                             {
-                                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                                if (item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros")
                                 {
-                                    Items[i].Quality = Items[i].Quality - 1;
+                                    
                                 }
                             }
                         }
                         else
                         {
-                            Items[i].Quality = Items[i].Quality - Items[i].Quality;
+                            item.Quality = item.Quality - item.Quality;
                         }
                     }
                     else
                     {
-                        if (Items[i].Quality < 50)
+                        if (item.Quality < 50)
                         {
-                            Items[i].Quality = Items[i].Quality + 1;
+                            item.Quality = item.Quality + 1;
                         }
 
 
-                        
+
                     }
                 }
             }
         }
+
+        // This method decreases the quality of an item by 1, but only if the item's quality is greater than 0 and the item is not "Sulfuras, Hand of Ragnaros".
+        private void DecreaseQuality(Item item)
+        {
+            if (item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros")
+            {
+                item.Quality = item.Quality - 1;
+            }
+        }
+
+
     }
 }
+    
